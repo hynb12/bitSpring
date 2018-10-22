@@ -2,29 +2,30 @@ package com.bitcamp.op.member.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bitcamp.op.jdbc.ConnectionProvider;
 import com.bitcamp.op.jdbc.JdbcUtil;
-import com.bitcamp.op.member.dao.MemberDao;
+import com.bitcamp.op.member.dao.JdbcTemplateMemberDao;
 import com.bitcamp.op.member.model.MemberInfo;
 
 public class MemberRegService {
 
-	@Autowired
-	private MemberDao memberDao;
+//	@Autowired
+//	private MemberDao memberDao;
 
-	private Connection conn;
+	@Autowired
+	private JdbcTemplateMemberDao memberDao;
+
+//	private Connection conn;
 
 	public int memberReg(MemberInfo memberInfo, HttpServletRequest request)
 			throws SQLException, IllegalStateException, IOException {
 
-		conn = ConnectionProvider.getConnection();
+//		conn = ConnectionProvider.getConnection();
 		int resultCnt = 0;
 
 		// 물리적 저장 경로
@@ -48,17 +49,17 @@ public class MemberRegService {
 		}
 
 		try {
-			conn.setAutoCommit(false);
+//			conn.setAutoCommit(false);
 
-			resultCnt = memberDao.insertMemberInfo(conn, memberInfo);
+			resultCnt = memberDao.insertMemberInfo(memberInfo);
 
-			conn.commit();
+//			conn.commit();
 		} catch (Exception e) {
 			JdbcUtil.rollback(null);
 			throw e;
 		} finally {
-			conn.setAutoCommit(false);
-			JdbcUtil.close(conn);
+//			conn.setAutoCommit(false);
+//			JdbcUtil.close(conn);
 		}
 
 		return resultCnt;

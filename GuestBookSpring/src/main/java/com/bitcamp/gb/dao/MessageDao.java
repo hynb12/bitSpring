@@ -20,10 +20,11 @@ public class MessageDao {
 		// int resultCnt = 0;
 		try {
 			pstmt = conn.prepareStatement("insert into guestbook_message "
-					+ "(message_id, guest_name, password, message) " + "values (message_id_seq.NEXTVAL, ?, ?, ?)");
-			pstmt.setString(1, message.getGuestName());
-			pstmt.setString(2, message.getPassword());
-			pstmt.setString(3, message.getMessage());
+					+ "(message_id, guest_name, password, message) " + "values (?, ?, ?, ?)");
+			pstmt.setInt(1, message.getId());
+			pstmt.setString(2, message.getGuestName());
+			pstmt.setString(3, message.getPassword());
+			pstmt.setString(4, message.getMessage());
 			// resultCnt = pstmt.executeUpdate();
 			return pstmt.executeUpdate();
 		} finally {
@@ -50,13 +51,18 @@ public class MessageDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Message> messageList = new ArrayList<Message>();
+		String select_sql = "select * from guestbook_message order by message_id desc limit ?, ?";
+
 		try {
-			pstmt = conn.prepareStatement("select message_id, guest_name, password, message from ( "
-					+ " select rownum rnum, message_id, guest_name, password, message from ( "
-					+ " select * from guestbook_message m order by m.message_id desc " + " ) where rownum <= ? "
-					+ ") where rnum >= ?");
-			pstmt.setInt(1, endRow);
-			pstmt.setInt(2, firstRow);
+			pstmt = conn.prepareStatement(select_sql);
+
+//			오라클
+//			pstmt.setInt(1, firstRow);
+//			pstmt.setInt(2, endRow);
+			// 오라클이랑 반대 mysql은 처음이 먼저
+			pstmt.setInt(1, firstRow);
+			pstmt.setInt(2, endRow);
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				do {

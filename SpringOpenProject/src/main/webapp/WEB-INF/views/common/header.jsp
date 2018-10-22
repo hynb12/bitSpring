@@ -20,8 +20,7 @@
 		}
 	%>
 	<li><a href="<%=request.getContextPath()%>/member/mypage">마이페이지</a></li>
-	<li><a href="<%=request.getContextPath()%>/memberList.jsp">회원
-			리스트</a></li>
+	<li><a href="<%=request.getContextPath()%>/member/list">회원 리스트</a></li>
 </ul>
 
 

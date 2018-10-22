@@ -20,9 +20,6 @@ ul, li {
 
 	<h1>방명록</h1>
 
-
-	${viewData.isEmpty()}
-
 	<c:if test="${viewData.isEmpty()}">
 작성된 방명록 메시지가 없습니다.
 </c:if>
@@ -30,8 +27,9 @@ ul, li {
 	<c:if test="${!viewData.isEmpty()}">
 		<ul>
 			<c:forEach var="message" items="${viewData.messageList}">
-				<li>${message.id} <br> ${message.guestName} <br>
-					${message.message}<br> <a href="view/${message.id}">상세보기</a> <a
+				<li>id:${message.id}<br>pw:${message.password} <br>name:${message.guestName}
+					<br> message:<br>${message.message}<br> <a
+					href="view/${message.id}">상세보기</a> <a
 					href="delete?id=${message.id}">[삭제하기]</a>
 				</li>
 			</c:forEach>

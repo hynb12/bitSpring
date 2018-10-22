@@ -3,6 +3,7 @@
 	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -54,12 +55,6 @@
 	</interceptors>
 
 
-
-
-
-
-
-
 	<context:component-scan
 		base-package="com.bitcamp.op" />
 
@@ -67,6 +62,9 @@
 	<beans:bean id="memberDao"
 		class="com.bitcamp.op.member.dao.MemberDao" />
 
+	<!-- MEMBER DAO 등록 -->
+	<beans:bean id="jdbcTemplateMemberDao"
+		class="com.bitcamp.op.member.dao.JdbcTemplateMemberDao" />
 
 	<!-- Service 등록 -->
 	<beans:bean id="memberRegService"
@@ -75,24 +73,26 @@
 	<beans:bean id="memberLoginService"
 		class="com.bitcamp.op.member.service.MemberLoginService" />
 
+	<beans:bean id="memberListService"
+		class="com.bitcamp.op.member.service.MemberListService" />
 
 
+	<!-- JDBC 빈 등록 -->
+	<beans:bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<beans:property name="driverClass"
+			value="com.mysql.jdbc.Driver" />
+		<beans:property name="jdbcUrl"
+			value="jdbc:mysql://localhost/book_ex?characterEncoding=utf8" />
+		<beans:property name="user" value="root" />
+		<beans:property name="password" value="1234" />
+	</beans:bean>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<!-- JdbcTemplate 빈 등록 -->
+	<beans:bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource">
+	</beans:bean>
 
 
 </beans:beans>

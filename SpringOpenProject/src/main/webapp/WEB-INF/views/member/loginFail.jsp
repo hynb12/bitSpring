@@ -9,7 +9,14 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-	로그인 처리 페이지 입니다.(POST 처리)
-	<br> 세션확인 : ${loginInfo}
+	<h1>
+		로그인이 정상적으로 처리되지 않았습니다.<br> 다시 시도해주세요.
+	</h1>
+
+	<h3>
+		<a href="login">돌아가기</a>
+	</h3>
+
+
 </body>
 </html>

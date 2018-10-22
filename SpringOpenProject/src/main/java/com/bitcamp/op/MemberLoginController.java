@@ -16,58 +16,36 @@ import com.bitcamp.op.member.service.MemberLoginService;
 @Controller
 @RequestMapping("/member/login")
 public class MemberLoginController {
-	
+
 	@Autowired
 	private MemberLoginService loginService;
-	
 
-	//@RequestMapping("/member/login")
-	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView getLoginForm(
-			@RequestParam(value="no", required=false) String num) {
-		
+	// @RequestMapping("/member/login")
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView getLoginForm(@RequestParam(value = "no", required = false) String num) {
+
 		return new ModelAndView("member/loginForm");
-		
+
 	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView loginProcess(
-			@RequestParam(value="userId", required=false) String userId, 
-			@RequestParam(value="password", required=false) String password,
-			HttpSession session
-			) throws SQLException {
-		
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView loginProcess(@RequestParam(value = "userId", required = false) String userId,
+			@RequestParam(value = "password", required = false) String password, HttpSession session)
+			throws SQLException {
+
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.setViewName("member/loginFail");
-		
+
 		if (userId != null && password != null) {
-			
-			if(loginService.login(userId, password, session)) {
+
+			if (loginService.login(userId, password, session)) {
 				modelAndView.setViewName("redirect:/");
 			}
-			
-			
-			
-			
-			
-		} 
-		
-		return modelAndView;	
+
+		}
+
+		return modelAndView;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

@@ -10,8 +10,10 @@
 h2, td {
 	padding: 10px;
 }
+
 #memherPhoto {
-	background-image: url('<%= request.getContextPath() %>/uploadfile/userphoto/${loginInfo.userPhoto}');
+	background-image:
+		url('<%=request.getContextPath()%>/uploadfile/userphoto/${loginInfo.userPhoto}');
 	background-size: 100%;
 	width: 150px;
 	height: 150px;
@@ -23,7 +25,7 @@ h2, td {
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 
 	<div id="contents">
