@@ -38,8 +38,8 @@ public class DBCPInit extends HttpServlet {
 
 	private void initConnectionPool() {
 
-		String jdbcDriver = "jdbc:mysql://localhost:3306/book_ex";
-		String username = "root";
+		String jdbcDriver = "jdbc:mysql://localhost:3306/openproject?serverTimezone=UTC&useSSL=false";
+		String username = "bit";
 		String pw = "1234";
 
 		try {
